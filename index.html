@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#080b16">
+  <title>Friend Arcade · Private Demo</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="/">
+        <span class="brand-mark">✦</span>
+        <span>FRIEND<span class="brand-accent">ARCADE</span></span>
+      </a>
+      <div class="top-actions">
+        <span class="demo-pill">DEMO ONLY</span>
+        <button class="icon-btn" id="logoutBtn" aria-label="Log out">↗</button>
+      </div>
+    </header>
+
+    <main>
+      <section id="authView" class="auth-view">
+        <div class="hero-copy">
+          <div class="eyebrow">PRIVATE FRIEND CIRCLE</div>
+          <h1>Play for the<br><span>moment.</span></h1>
+          <p>Three quick games, friendly competition and a leaderboard built for your circle.</p>
+        </div>
+        <div class="auth-card glass">
+          <div class="auth-tabs">
+            <button class="tab active" data-auth="signup">Create account</button>
+            <button class="tab" data-auth="login">Sign in</button>
+          </div>
+          <form id="signupForm" class="auth-form">
+            <label>Display name<input name="displayName" placeholder="Your name" maxlength="40" required></label>
+            <label>Username<input name="username" placeholder="e.g. arjun_21" maxlength="20" required></label>
+            <label>Password<input name="password" type="password" placeholder="At least 6 characters" minlength="6" required></label>
+            <label>Invite code<input name="inviteCode" placeholder="FRIEND2026" required></label>
+            <button class="primary-btn" type="submit">Enter the circle <span>→</span></button>
+            <p class="form-message" id="signupMessage"></p>
+          </form>
+          <form id="loginForm" class="auth-form hidden">
+            <label>Username<input name="username" placeholder="Your username" required></label>
+            <label>Password<input name="password" type="password" required></label>
+            <button class="primary-btn" type="submit">Continue <span>→</span></button>
+            <p class="form-message" id="loginMessage"></p>
+          </form>
+          <small class="muted-note">Invite-only · Virtual coins · No cash value</small>
+        </div>
+      </section>
+
+      <section id="appView" class="hidden">
+        <div class="dashboard-head">
+          <div>
+            <div class="eyebrow">WELCOME BACK</div>
+            <h2>Hey, <span id="displayName">Player</span> <span class="wave">✦</span></h2>
+          </div>
+          <div class="wallet-chip">
+            <span class="coin-icon">◈</span>
+            <span id="coinBalance">0</span>
+            <small>DEMO COINS</small>
+          </div>
+        </div>
+
+        <div class="stat-strip">
+          <div><span id="levelValue">1</span><small>LEVEL</small></div>
+          <div><span id="xpValue">0</span><small>XP</small></div>
+          <div><span id="playsValue">0/20</span><small>FREE PLAYS</small></div>
+        </div>
+
+        <div class="section-heading">
+          <div><span class="eyebrow">CHOOSE YOUR RUSH</span><h3>Free play games</h3></div>
+          <button class="text-btn" id="refreshBoard">Leaderboard ↗</button>
+        </div>
+        <div class="game-grid">
+          <button class="game-card color-card" data-game="color">
+            <span class="game-emoji">●</span><span class="game-name">Color Rush</span>
+            <span class="game-caption">Pick the pulse</span><span class="play-arrow">→</span>
+          </button>
+          <button class="game-card aviator-card" data-game="aviator">
+            <span class="game-emoji">↗</span><span class="game-name">Aviator</span>
+            <span class="game-caption">Ride the multiplier</span><span class="play-arrow">→</span>
+          </button>
+          <button class="game-card chicken-card" data-game="chicken">
+            <span class="game-emoji">♧</span><span class="game-name">Chicken Road</span>
+            <span class="game-caption">Cross the chaos</span><span class="play-arrow">→</span>
+          </button>
+        </div>
+
+        <div class="split-grid">
+          <section class="panel reward-panel">
+            <div class="panel-top"><div><span class="eyebrow">KEEP THE STREAK</span><h3>Daily reward</h3></div><span class="reward-icon">✹</span></div>
+            <p>Come back every day for extra demo coins.</p>
+            <button class="secondary-btn" id="dailyRewardBtn">Claim +500</button>
+          </section>
+          <section class="panel">
+            <div class="panel-top"><div><span class="eyebrow">YOUR RUN</span><h3>Recent rounds</h3></div><button class="text-btn" id="historyBtn">View all</button></div>
+            <div id="historyList" class="mini-list"></div>
+          </section>
+        </div>
+
+        <section class="panel leaderboard-panel">
+          <div class="panel-top"><div><span class="eyebrow">FRIEND CIRCLE</span><h3>Leaderboard</h3></div><span class="live-dot">LIVE</span></div>
+          <div id="leaderboard" class="leaderboard"></div>
+        </section>
+      </section>
+    </main>
+    <footer>PRIVATE SOCIAL GAME · DEMO CREDITS HAVE NO CASH VALUE</footer>
+  </div>
+
+  <div class="modal-backdrop hidden" id="demoModal">
+    <div class="modal glass">
+      <span class="modal-symbol">✦</span>
+      <div class="eyebrow">BEFORE YOU PLAY</div>
+      <h2>Just for the fun of it.</h2>
+      <p>This is a private demo. Your balance is made of virtual coins only. Coins cannot be deposited, withdrawn, transferred or exchanged for money.</p>
+      <button class="primary-btn" id="demoAgree">I understand · Let's play</button>
+    </div>
+  </div>
+
+  <div class="modal-backdrop hidden" id="gameModal">
+    <div class="modal game-modal glass">
+      <button class="close-btn" id="closeGame">×</button>
+      <span class="eyebrow" id="gameEyebrow">FREE PLAY</span>
+      <h2 id="gameTitle">Color Rush</h2>
+      <p id="gameDescription">Choose a color and reveal your result.</p>
+      <div id="gameControls"></div>
+      <div id="gameResult" class="game-result hidden"></div>
+      <button class="primary-btn" id="playGameBtn">Play free round</button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="/app.js"></script>
+</body>
+</html>

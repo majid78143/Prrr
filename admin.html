@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Admin · Friend Arcade</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="admin-body">
+  <div class="admin-shell">
+    <section id="adminAuth" class="auth-card glass admin-login">
+      <div class="brand"><span class="brand-mark">✦</span><span>FRIEND<span class="brand-accent">ARCADE</span></span></div>
+      <div class="eyebrow">PRIVATE CONTROL ROOM</div>
+      <h1>Admin login</h1>
+      <p class="muted-note">Use the credentials configured in your environment.</p>
+      <form id="adminLoginForm" class="auth-form">
+        <label>Email<input name="email" type="email" required></label>
+        <label>Password<input name="password" type="password" required></label>
+        <button class="primary-btn" type="submit">Open dashboard <span>→</span></button>
+        <p class="form-message" id="adminMessage"></p>
+      </form>
+    </section>
+
+    <section id="adminDashboard" class="hidden">
+      <header class="topbar admin-topbar">
+        <a class="brand" href="/"><span class="brand-mark">✦</span><span>FRIEND<span class="brand-accent">ARCADE</span></span></a>
+        <div class="top-actions"><span class="demo-pill">ADMIN</span><button class="text-btn" id="adminLogout">Log out</button></div>
+      </header>
+      <div class="admin-heading"><div><div class="eyebrow">PRIVATE CONTROL ROOM</div><h1>Circle overview</h1></div><button class="secondary-btn" id="adminRefresh">Refresh data</button></div>
+      <div class="admin-stats">
+        <div class="admin-stat"><small>USERS</small><strong id="statUsers">0</strong></div>
+        <div class="admin-stat"><small>FREE ROUNDS</small><strong id="statRounds">0</strong></div>
+        <div class="admin-stat"><small>COINS ISSUED</small><strong id="statIssued">0</strong></div>
+        <div class="admin-stat"><small>REWARDS TODAY</small><strong id="statToday">0</strong></div>
+      </div>
+      <div class="admin-grid">
+        <section class="panel">
+          <div class="panel-top"><div><span class="eyebrow">USER MANAGEMENT</span><h3>Grant demo credits</h3></div></div>
+          <form id="grantForm" class="grant-form">
+            <label>User<select name="userId" id="grantUser" required></select></label>
+            <label>Amount<input name="amount" type="number" min="1" max="1000000" value="500"></label>
+            <label>Reason<input name="note" maxlength="120" value="Friend circle bonus"></label>
+            <button class="primary-btn" type="submit">Add demo credits</button>
+            <p class="form-message" id="grantMessage"></p>
+          </form>
+        </section>
+        <section class="panel">
+          <div class="panel-top"><div><span class="eyebrow">AUDIT TRAIL</span><h3>Recent actions</h3></div></div>
+          <div id="auditList" class="audit-list"></div>
+        </section>
+      </div>
+      <section class="panel user-table-panel">
+        <div class="panel-top"><div><span class="eyebrow">FRIEND CIRCLE</span><h3>Users</h3></div></div>
+        <div class="table-wrap"><table><thead><tr><th>User</th><th>Demo coins</th><th>Level</th><th>Free plays</th><th>Joined</th></tr></thead><tbody id="userTable"></tbody></table></div>
+      </section>
+    </section>
+  </div>
+  <div class="toast" id="adminToast"></div>
+  <script src="/admin.js"></script>
+</body>
+</html>
